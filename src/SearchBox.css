@@ -1,3 +1,65 @@
 .searchBox {
+    display: flex;
+    justify-content: center;
+    padding: 18px 12px;
+}
+
+.searchCard {
+    width: 100%;
+    max-width: 720px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(245,246,250,0.8));
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(20,30,50,0.12);
+    padding: 14px;
+    backdrop-filter: blur(6px);
+}
+
+.searchForm {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.searchInput {
+    flex: 1 1 320px;
+}
+
+.searchInput .MuiOutlinedInput-root {
+    background: white;
+    border-radius: 10px;
+}
+
+.searchButton {
+    background: linear-gradient(90deg,#4f46e5,#06b6d4) !important;
+    color: white !important;
+    text-transform: none !important;
+    padding: 8px 14px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 6px 18px rgba(79,70,229,0.18);
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.searchButton:hover {
+    transform: translateY(-1px);
+}
+
+.searchIcon {
+    stroke: rgba(255,255,255,0.95);
+}
+
+.searchError {
+    margin-top: 10px;
+    color: #dc2626;
+    font-weight: 600;
     text-align: center;
+}
+
+@media (max-width: 480px) {
+    .searchCard { padding: 10px; }
+    .searchInput { flex-basis: 100%; }
+    .searchButton { width: 100%; justify-content: center; }
 }

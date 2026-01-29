@@ -23,9 +23,9 @@ export default function InfoBox({ info }) {
         </b>
       </h1>
       <div className="container">
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 720, width: '100%' }}>
           <CardMedia
-            sx={{ height: 140 }}
+            sx={{ height: 220, objectFit: 'cover' }}
             image={
               info.humidity > 80
                 ? RAIN_LINK
@@ -45,7 +45,7 @@ export default function InfoBox({ info }) {
                 <SunnyIcon />
               )}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="body2"
               sx={{ color: "text.secondary" }}
               component={"span"}
@@ -60,9 +60,41 @@ export default function InfoBox({ info }) {
                 </i>
                 - and it feels like <strong>{info.feelLike}&deg;C</strong>
               </p>
-            </Typography>
+            </Typography> */}
           </CardContent>
         </Card>
+      </div>
+      <div className="cardsGrid">
+        {[
+          {
+            title: "Temperature",
+            value: `${info.temp}\u00B0C`,
+            icon: <SunnyIcon className="statIcon" />,
+          },
+          {
+            title: "High / Low",
+            value: `${info.temp_max}\u00B0C / ${info.temp_min}\u00B0C`,
+            icon: <AcUnitIcon className="statIcon" />,
+          },
+          {
+            title: "Humidity",
+            value: `${info.humidity}%`,
+            icon: <BeachAccessIcon className="statIcon" />,
+          },
+          {
+            title: "Feels Like",
+            value: `${info.feelLike}\u00B0C — ${info.weather}`,
+            icon: <SunnyIcon className="statIcon" />,
+          },
+        ].map((s, idx) => (
+          <div className="statCard" key={idx}>
+            <div className="statHead">
+              {s.icon}
+              <div className="statTitle">{s.title}</div>
+            </div>
+            <div className="statValue">{s.value}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
