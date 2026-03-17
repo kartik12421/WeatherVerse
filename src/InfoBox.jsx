@@ -23,17 +23,29 @@ export default function InfoBox({ info }) {
         </b>
       </h1>
       <div className="container">
-        <Card sx={{ maxWidth: 720, width: '100%' }}>
+        <Card
+          sx={{
+            maxWidth: 720,
+            width: "100%",
+            background:
+              "linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(17, 24, 39, 0.92))",
+            color: "#e2e8f0",
+            border: "1px solid rgba(125, 211, 252, 0.18)",
+            boxShadow: "0 24px 60px rgba(2, 8, 23, 0.4)",
+            borderRadius: "22px",
+            overflow: "hidden",
+          }}
+        >
           <CardMedia
-            sx={{ height: 220, objectFit: 'cover' }}
+            sx={{ height: 220, objectFit: "cover" }}
             image={
               info.humidity > 80
                 ? RAIN_LINK
                 : info.temp < 15
-                ? COLD_LINK
-                : HOT_LINK
+                  ? COLD_LINK
+                  : HOT_LINK
             }
-            title="green iguana"
+            title="Weather visual"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -45,22 +57,6 @@ export default function InfoBox({ info }) {
                 <SunnyIcon />
               )}
             </Typography>
-            {/* <Typography
-              variant="body2"
-              sx={{ color: "text.secondary" }}
-              component={"span"}
-            >
-              <p>Humidity: {info.humidity}</p>
-              <p>Maximum Temperature: {info.temp_max}&deg;C</p>
-              <p>Minimum Temperature: {info.temp_min}&deg;C</p>
-              <p>
-                The weather is -
-                <i>
-                  <strong>{info.weather}</strong>
-                </i>
-                - and it feels like <strong>{info.feelLike}&deg;C</strong>
-              </p>
-            </Typography> */}
           </CardContent>
         </Card>
       </div>
@@ -83,7 +79,7 @@ export default function InfoBox({ info }) {
           },
           {
             title: "Feels Like",
-            value: `${info.feelLike}\u00B0C — ${info.weather}`,
+            value: `${info.feelLike}\u00B0C - ${info.weather}`,
             icon: <SunnyIcon className="statIcon" />,
           },
         ].map((s, idx) => (

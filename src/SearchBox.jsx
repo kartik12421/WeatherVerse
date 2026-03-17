@@ -5,45 +5,50 @@ import "./SearchBox.css";
 
 export default function SearchBox({ updateInfo }) {
   let [location, setLocation] = useState("");
-  let [error, setError] = useState(false);
-  const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-  const API_KEY = "YOUR_API_KEY";
+  let [error, setError] = useState("");
+  const API_URL = import.meta.env.VITE_APP_URL;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   let handleWeatherInfo = async () => {
-    try {
-      let response = await fetch(
-        `${API_URL}?q=${location}&appid=${API_KEY}&units=metric`
-      );
-      let jsonData = await response.json();
-      let result = {
-        location: jsonData.name,
-        temp: jsonData.main.temp,
-        temp_max: jsonData.main.temp_max,
-        temp_min: jsonData.main.temp_min,
-        humidity: jsonData.main.humidity,
-        feelLike: jsonData.main.feels_like,
-        weather: jsonData.weather[0].description,
-      };
-      return result;
-    } catch (err) {
-      throw err;
+    let response = await fetch(
+      `${API_URL}?q=${location}&appid=${API_KEY}&units=metric`
+    );
+    let jsonData = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error("No such place available in our database.");
+      }
+
+      throw new Error(jsonData.message || "Unable to fetch weather data.");
     }
+
+    let result = {
+      location: jsonData.name,
+      temp: jsonData.main.temp,
+      temp_max: jsonData.main.temp_max,
+      temp_min: jsonData.main.temp_min,
+      humidity: jsonData.main.humidity,
+      feelLike: jsonData.main.feels_like,
+      weather: jsonData.weather[0].description,
+    };
+    return result;
   };
 
   let handleChange = (event) => {
     setLocation(event.target.value);
-    setError(false);
+    setError("");
   };
 
   let handleSubmit = async (event) => {
     try {
       event.preventDefault();
-      setLocation("");
       let newInfo = await handleWeatherInfo();
       updateInfo(newInfo);
-      setError(false);
+      setLocation("");
+      setError("");
     } catch (err) {
-      setError(true);
+      setError(err.message);
     }
   };
 
@@ -78,9 +83,7 @@ export default function SearchBox({ updateInfo }) {
           </Button>
         </form>
 
-        {error && (
-          <p className="searchError">No such place available in our Database.</p>
-        )}
+        {error && <p className="searchError">{error}</p>}
       </div>
     </div>
   );

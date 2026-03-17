@@ -18,10 +18,13 @@ export default function WeatherApp() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Live Weather</h1>
-      <SearchBox updateInfo = {updateInfo}/>
-      <InfoBox info={weatherInfo} />
+    <div className="weatherApp">
+      <div className="weatherShell">
+        <p className="weatherEyebrow">Forecast dashboard</p>
+        <h1 className="weatherTitle">Live Weather</h1>
+        <SearchBox updateInfo={updateInfo} />
+        <InfoBox info={weatherInfo} />
+      </div>
     </div>
   );
 }
