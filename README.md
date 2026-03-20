@@ -148,5 +148,3 @@ This project is open source and available for use.
 ## Author
 
 Weather App by KJ
-
-Thanks...
